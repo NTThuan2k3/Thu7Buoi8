@@ -37,6 +37,26 @@ module.exports = {
     LoginValidator: [
         body("username").isLength(options.username).withMessage("username hoac password sai"),
         body("password").isStrongPassword(options.password).withMessage("username hoac password sai")
+    ],
+    ChangePasswordValidator: [
+        body("oldpassword").notEmpty().withMessage("Can nhap mat khau cu"),
+        body("newpassword").isStrongPassword(options.password).withMessage(util.format(constants.VALIDATOR_ERROR_PASSWORD,
+            options.password.minLength,
+            options.password.minLowercase,
+            options.password.minUppercase,
+            options.password.minNumbers,
+            options.password.minSymbols))
+    ],
+    ForgotPasswordValidator: [
+        body("email").isEmail().withMessage(constants.VALIDATOR_ERROR_EMAIL)
+    ],
+    ResetPasswordValidator: [
+        body("password").isStrongPassword(options.password).withMessage(util.format(constants.VALIDATOR_ERROR_PASSWORD,
+            options.password.minLength,
+            options.password.minLowercase,
+            options.password.minUppercase,
+            options.password.minNumbers,
+            options.password.minSymbols))
     ]
 }
 // multer
